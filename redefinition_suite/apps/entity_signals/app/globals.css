@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "@redefinition/design-tokens";
+
+@layer base {
+  html, body {
+    /* Site-wide gradient base (visible everywhere) */
+    background: 
+      radial-gradient(1000px 600px at 15% 20%, rgba(16,185,129,0.22) 0%, rgba(16,185,129,0) 60%),
+      radial-gradient(900px 550px at 85% 80%, rgba(20,184,166,0.20) 0%, rgba(20,184,166,0) 62%),
+      linear-gradient(135deg, #f3fff8 0%, #eafdf2 45%, #dcfaf3 100%) !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    min-height: 100%;
+  }
+  
+  html {
+    background-attachment: fixed;
+  }
+  
+  body { 
+    @apply text-[color:var(--foreground)];
+    min-height: 100vh;
+    background-attachment: scroll;
+  }
+}
+
+/* Fixed overlay background to ensure visibility above section fills */
+.signals-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0; /* Sit above page background, below all content */
+  pointer-events: none;
+  background-color: #ffffff;
+  /* Subtle emerald-teal gradient background (no pattern) */
+  background-image:
+    radial-gradient(1200px 700px at 12% 18%, rgba(16,185,129,0.06) 0%, rgba(16,185,129,0) 60%),
+    radial-gradient(1100px 650px at 88% 82%, rgba(20,184,166,0.05) 0%, rgba(20,184,166,0) 62%),
+    linear-gradient(135deg, #f7fffb 0%, #f0fdf4 40%, #ecfeff 100%);
+  background-blend-mode: screen, screen, normal;
+  background-repeat: no-repeat;
+  background-size: 100% 100%, 100% 100%, 100% 100%;
+}
+
+/* Tight, abstract slanted inkblot pattern for section overlays */
+.pattern-tight {
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(118deg, rgba(13,148,136,0.08) 0 2px, rgba(255,255,255,0) 2px 10px),
+    repeating-linear-gradient(302deg, rgba(110,231,183,0.06) 0 1px, rgba(255,255,255,0) 1px 12px),
+    radial-gradient(900px 540px at 18% 28%, rgba(16,185,129,0.12) 0%, rgba(16,185,129,0.0) 62%),
+    radial-gradient(820px 520px at 82% 72%, rgba(110,231,183,0.10) 0%, rgba(110,231,183,0.0) 64%);
+  background-blend-mode: multiply, multiply, screen, screen;
+  background-repeat: repeat, repeat, no-repeat, no-repeat;
+  opacity: 0.5;
+}
+
+/* Entity Signals site accents */
+:root {
+  --color-secondary: #10B981; /* Emerald */
+}
+
+/* Scroll-triggered animations */
+.scroll-animate {
+  /* Elements start hidden and positioned for animation */
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-animate.slide-right {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.scroll-animate.slide-right.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-animate.slide-left {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.scroll-animate.slide-left.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-animate.fade-only {
+  opacity: 0;
+  transform: none;
+}
+
+.scroll-animate.fade-only.animate-in {
+  opacity: 1;
+  transform: none;
+}
+
+

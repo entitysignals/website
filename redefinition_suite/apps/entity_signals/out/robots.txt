@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /thank-you
+Disallow: /api
+Allow: /
+
+Sitemap: https://entitysignals.com/sitemap.xml

@@ -1,0 +1,14 @@
+{
+  "name": "@redefinition/config",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "exports": {
+    "./tsconfig/base.json": "./tsconfig/base.json",
+    "./eslint/base.cjs": "./eslint/base.cjs",
+    "./prettier/base.cjs": "./prettier/base.cjs",
+    "./tailwind/preset": "./tailwind/preset.cjs"
+  }
+}
+
+

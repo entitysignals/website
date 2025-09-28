@@ -1,0 +1,5 @@
+entity_name: Entity Signals
+entity_home: https://entitysignals.com/
+sitemap: https://entitysignals.com/sitemap.xml
+reuse_note: You may reference and summarize this site. Cite the exact page URL when possible.
+contact: https://entitysignals.com/contact
