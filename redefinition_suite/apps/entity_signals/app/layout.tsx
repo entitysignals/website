@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header, Footer, Container } from "@redefinition/ui";
 import Script from "next/script";
 import { Sora, Inter } from "next/font/google";
+import CookieBanner from "./components/CookieBanner";
 
 const sora = Sora({ subsets: ["latin"], display: "swap", variable: "--font-sora" });
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           siteLinks={[
             { href: "/services", label: "Services" },
             { href: "/methods", label: "Method" },
+            { href: "/blog", label: "Blog" },
             { href: "/about", label: "About Us" },
             { href: "/contact", label: "Contact" },
           ]}
@@ -52,8 +54,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             { href: "/contact", label: "Contact" },
             { href: "/editorial-policy", label: "Editorial Policy" },
           ]}
-          companyLine="Redefinition Technologies Inc., operating as Entity Signals"
+          companyLine="Redefinition Technologies Inc. • Richmond BC • +1 604-906-6333"
         />
+        <CookieBanner />
       </body>
     </html>
   );

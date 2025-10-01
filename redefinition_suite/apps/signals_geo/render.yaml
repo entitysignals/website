@@ -5,8 +5,8 @@ services:
     env: node
     region: oregon
     plan: starter
-    buildCommand: npm install -g pnpm && pnpm install && pnpm build
-    startCommand: pnpm start
+    buildCommand: npm install -g pnpm && cd redefinition_suite && pnpm install && cd apps/signals_geo && pnpm build
+    startCommand: cd redefinition_suite/apps/signals_geo && pnpm start
     envVars:
       - key: NODE_ENV
         value: production
@@ -29,8 +29,8 @@ services:
     env: node
     region: oregon
     plan: starter
-    buildCommand: npm install -g pnpm && pnpm install
-    startCommand: pnpm worker
+    buildCommand: npm install -g pnpm && cd redefinition_suite && pnpm install
+    startCommand: cd redefinition_suite/apps/signals_geo && pnpm worker
     envVars:
       - key: NODE_ENV
         value: production
@@ -42,5 +42,3 @@ services:
         sync: false
       - key: BRAVE_API_KEY
         sync: false
-
-

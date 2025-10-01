@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3020",
     "build": "next build",
+    "build-without-admin": "node build-without-admin.js",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc -p tsconfig.json --noEmit"

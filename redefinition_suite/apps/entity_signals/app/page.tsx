@@ -22,16 +22,26 @@ const organizationSchema = {
     "https://github.com/entitysignals",
     "https://signalsgeo.com/"
   ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "52-3111 Beckman Pl.",
+    "addressLocality": "Richmond",
+    "addressRegion": "BC",
+    "addressCountry": "Canada",
+    "postalCode": "V6X 3R3"
+  },
+  "telephone": "+1 604-906-6333",
   "contactPoint": [
     {
       "@type": "ContactPoint",
       "contactType": "sales",
       "email": "info@entitysignals.com",
+      "telephone": "+1 604-906-6333",
       "url": "https://entitysignals.com/contact"
     }
   ],
   "brand": {
-    "@type": "Brand", 
+    "@type": "Brand",
     "name": "SignalsGEO",
     "url": "https://signalsgeo.com/"
   }
