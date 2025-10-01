@@ -7,8 +7,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  output: 'export',
-  trailingSlash: true,
+  // Removed 'output: export' to support dynamic server-side rendering for auth
   images: {
     unoptimized: true
   },

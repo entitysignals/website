@@ -3,6 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "incremental": true,
+    "paths": {
+      "@/*": ["./*"]
+    },
     "plugins": [
       {
         "name": "next"
@@ -13,6 +16,7 @@
     "next-env.d.ts",
     "app/**/*",
     "components/**/*",
+    "lib/**/*",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"

@@ -1,44 +1,17 @@
 "use client";
 import { Container, Input } from "@redefinition/ui";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Page() {
+  const router = useRouter();
   const [domain, setDomain] = useState("");
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [results, setResults] = useState<any>(null);
 
-  const handleAnalyze = async (e: React.FormEvent) => {
+  const handleAnalyze = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!domain.trim()) return;
-    
-    setIsAnalyzing(true);
-    setResults(null);
-    
-    try {
-      // TODO: Replace with actual API call
-      const mockResults = await simulateAnalysis(domain);
-      setResults(mockResults);
-    } catch (error) {
-      console.error("Analysis failed:", error);
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
-
-  // Mock API simulation - replace with real API later
-  const simulateAnalysis = async (domain: string) => {
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    return {
-      domain,
-      overallScore: Math.floor(Math.random() * 40) + 60, // 60-100
-      scores: {
-        technical: Math.floor(Math.random() * 30) + 70,
-        content: Math.floor(Math.random() * 30) + 65,
-        authority: Math.floor(Math.random() * 25) + 60,
-        aiReadiness: Math.floor(Math.random() * 35) + 65
-      },
-      timestamp: new Date().toISOString()
-    };
+    // Redirect to signup page (lead magnet)
+    router.push("/auth/signup");
   };
 
   return (
@@ -48,131 +21,98 @@ export default function Page() {
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             {/* Platform Header */}
-            <div className="mb-12">
+            <div className="mb-8">
               <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                Signals GEO
+                Discover Your AI Readiness Score
               </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Analyze your website's search and AI performance
+              <p className="text-xl text-gray-600 mb-6">
+                See how your website performs in AI-powered search results and answer engines
               </p>
             </div>
 
-            {/* Analysis Form */}
+            {/* Auth CTAs - Above Search */}
+            <div className="flex justify-center gap-4 mb-8">
+              <Link
+                href="/auth/signup"
+                className="bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300"
+              >
+                Get Started Free
+              </Link>
+              <Link
+                href="/auth/login"
+                className="bg-white text-gray-700 px-8 py-3 rounded-xl font-semibold border border-gray-300 hover:bg-gray-50 transition-all duration-300"
+              >
+                Login
+              </Link>
+            </div>
+
+            {/* Analysis Form - Lead Magnet */}
             <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 p-8 mb-8">
               <form onSubmit={handleAnalyze} className="space-y-6">
+                <div className="text-center mb-4">
+                  <p className="text-sm text-gray-600">
+                    Enter your website to see a preview
+                  </p>
+                </div>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <div className="flex-1">
                     <Input
-                      type="url"
-                      placeholder="Enter domain (e.g., example.com)"
+                      type="text"
+                      placeholder="Enter your website (e.g., example.com)"
                       value={domain}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDomain(e.target.value)}
                       className="text-lg py-4 text-center"
-                      disabled={isAnalyzing}
-                      required
                     />
                   </div>
                   <button
                     type="submit"
-                    disabled={isAnalyzing || !domain.trim()}
-                    className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 min-w-[140px]"
+                    className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 min-w-[140px]"
                   >
-                    {isAnalyzing ? "Analyzing..." : "Analyze"}
+                    Analyze Now
                   </button>
                 </div>
-                {isAnalyzing && (
-                  <div className="text-sm text-gray-500">
-                    Running comprehensive analysis... This may take a few minutes.
-                  </div>
-                )}
+                <div className="text-xs text-center text-gray-500">
+                  Free account required • Get results in minutes
+                </div>
               </form>
             </div>
 
-            {/* Results Display */}
-            {results && (
-              <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/40 p-8 text-left">
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                    Analysis Results for {results.domain}
-                  </h2>
-                  <div className="text-sm text-gray-500">
-                    Generated on {new Date(results.timestamp).toLocaleString()}
-                  </div>
-                </div>
-
-                {/* Overall Score */}
-                <div className="text-center mb-8 p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl">
-                  <div className="text-5xl font-bold text-blue-600 mb-2">
-                    {results.overallScore}
-                  </div>
-                  <div className="text-lg font-semibold text-gray-700">
-                    Overall GEO Score
-                  </div>
-                  <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium mt-2 ${
-                    results.overallScore >= 80 ? 'bg-green-100 text-green-800' :
-                    results.overallScore >= 70 ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-red-100 text-red-800'
-                  }`}>
-                    {results.overallScore >= 80 ? 'Excellent' :
-                     results.overallScore >= 70 ? 'Good' : 'Needs Improvement'}
-                  </div>
-                </div>
-
-                {/* Detailed Scores */}
-                <div className="grid gap-6 md:grid-cols-2">
-                  {Object.entries(results.scores).map(([key, score]: [string, number]) => (
-                    <div key={key} className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="font-medium capitalize">
-                          {key.replace(/([A-Z])/g, ' $1').trim()}
-                        </span>
-                        <span className="text-gray-600">{score}/100</span>
-                      </div>
-                      <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-blue-600 rounded-full transition-all duration-1000"
-                          style={{ width: `${score}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* API Integration Notice */}
-                <div className="mt-8 p-4 bg-blue-50 rounded-xl border border-blue-200">
-                  <div className="text-sm text-blue-800">
-                    <strong>Note:</strong> This is a demonstration interface. 
-                    Real analysis results will be integrated via API endpoints.
-                  </div>
-                </div>
+            {/* Features Grid */}
+            <div className="grid gap-6 md:grid-cols-4 text-center mb-12">
+              <div className="p-6 bg-white/60 rounded-2xl">
+                <div className="text-4xl mb-3">🤖</div>
+                <div className="font-semibold text-gray-900 mb-2">AI Discoverability</div>
+                <div className="text-sm text-gray-600">How AI engines see your brand</div>
               </div>
-            )}
-
-            {/* Quick Info */}
-            {!results && !isAnalyzing && (
-              <div className="grid gap-6 md:grid-cols-4 text-center">
-                <div className="p-4">
-                  <div className="text-3xl mb-2">🔧</div>
-                  <div className="font-semibold text-gray-900">Technical</div>
-                  <div className="text-sm text-gray-600">Performance & Structure</div>
-                </div>
-                <div className="p-4">
-                  <div className="text-3xl mb-2">📝</div>
-                  <div className="font-semibold text-gray-900">Content</div>
-                  <div className="text-sm text-gray-600">Quality & Relevance</div>
-                </div>
-                <div className="p-4">
-                  <div className="text-3xl mb-2">🏆</div>
-                  <div className="font-semibold text-gray-900">Authority</div>
-                  <div className="text-sm text-gray-600">Trust & Recognition</div>
-                </div>
-                <div className="p-4">
-                  <div className="text-3xl mb-2">🤖</div>
-                  <div className="font-semibold text-gray-900">AI Ready</div>
-                  <div className="text-sm text-gray-600">Future-Proof Optimization</div>
-                </div>
+              <div className="p-6 bg-white/60 rounded-2xl">
+                <div className="text-4xl mb-3">📝</div>
+                <div className="font-semibold text-gray-900 mb-2">Content Quality</div>
+                <div className="text-sm text-gray-600">AI-ready content analysis</div>
               </div>
-            )}
+              <div className="p-6 bg-white/60 rounded-2xl">
+                <div className="text-4xl mb-3">🔧</div>
+                <div className="font-semibold text-gray-900 mb-2">Technical Structure</div>
+                <div className="text-sm text-gray-600">Performance & crawlability</div>
+              </div>
+              <div className="p-6 bg-white/60 rounded-2xl">
+                <div className="text-4xl mb-3">🏆</div>
+                <div className="font-semibold text-gray-900 mb-2">Authority & Trust Signals</div>
+                <div className="text-sm text-gray-600">Citations & reputation</div>
+              </div>
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="text-center">
+              <p className="text-gray-600 mb-4">
+                Join businesses optimizing for the AI-powered search era
+              </p>
+              <Link
+                href="/auth/signup"
+                className="inline-block bg-blue-600 text-white px-10 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 text-lg"
+              >
+                Start Your Free Analysis
+              </Link>
+            </div>
           </div>
         </Container>
       </div>
